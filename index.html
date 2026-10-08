@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custodial Pre-Visit Assessment & Entry Guide</title>
+  <!-- Author Metadata (HTML5 Standard) -->
+  <meta name="author" content="Peter Taekema & Gareb Taekema">
+  <!-- Version Metadata (Common Custom Practice) -->
+  <meta name="version" content="0.0.3">
+  <!-- Optional: Last Modified / Release Date -->
+  <meta name="revised" content="2026-10-08">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandNavy: {
+              50: '#f0f5fa',
+              100: '#e1ecf5',
+              600: '#1e4b7a',
+              700: '#163b61',
+              800: '#0f2944',
+              900: '#081a2d',
+            },
+            brandAmber: {
+              500: '#d97706',
+              600: '#b45309',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printArea, #printArea * {
+        visibility: visible;
+      }
+      #printArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+        background: #ffffff;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    .wa-emblem-container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.wa-emblem-label {
+  font-size: 0.9rem;
+  color: #555555;
+}
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
+
+  <!-- Header Banner -->
+  <header class="bg-brandNavy-900 text-white shadow-md border-b-4 border-brandAmber-500 sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-4 py-3 sm:px-6 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-lg bg-brandNavy-700 border border-slate-600 flex items-center justify-center text-amber-400 font-bold shadow-sm">
+          <i class="ph-bold ph-shield-check text-2xl"></i>
+        </div>
+        <div>
+          <div class="text-xs uppercase tracking-wider text-slate-300 font-medium">Custodial Facility Entry Assessment</div>
+          <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white">Pre-Visit Assessment & Entry Assistant</h1>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="resetAll()" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium rounded-md bg-brandNavy-700 hover:bg-brandNavy-800 text-slate-200 border border-slate-600 transition shadow-sm">
+          <i class="ph-bold ph-arrow-counter-clockwise"></i>
+          <span>Reset Form</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+    <!-- Welcoming Informational Banner -->
+    <div class="bg-white rounded-xl border border-slate-200 p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="wa-emblem-container">
+        <a href="https://www.wa.gov.au/organisation/department-of-justice">
+        <img
+        src="DOJ-Logo.jpg"
+        alt="Department of Justice"
+        loading="lazy"/>
+        </div></a>
+      <div class="flex items-start gap-3">
+
+        <div class="text-xs sm:text-sm text-slate-600">
+          <span class="font-bold text-slate-900 block">Planning a visit to a custodial facility?</span>
+          Complete this quick guide to find out the paperwork you will need and your visit classification. Present the generated summary to Gatehouse officers upon arrival to speed up your entry check.
+        </div>
+      </div>
+      <div class="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 bg-slate-100 rounded-lg border text-slate-700 shrink-0">
+        <i class="ph-bold ph-clock"></i> Takes 2–3 minutes
+      </div>
+    </div>
+
+    <!-- Stepper Navigation Progress -->
+    <div class="bg-white rounded-xl border border-slate-200 p-3 sm:p-4 shadow-sm">
+      <div class="grid grid-cols-3 gap-2 text-center text-xs font-semibold">
+        <div id="stepTab1" class="py-2 px-3 rounded-lg bg-brandNavy-100 text-brandNavy-900 border border-brandNavy-600 flex items-center justify-center gap-2">
+          <span class="w-5 h-5 rounded-full bg-brandNavy-800 text-white flex items-center justify-center text-xs">1</span>
+          <span>Visit & Inmate Details</span>
+        </div>
+        <div id="stepTab2" class="py-2 px-3 rounded-lg bg-slate-100 text-slate-500 border border-slate-200 flex items-center justify-center gap-2">
+          <span class="w-5 h-5 rounded-full bg-slate-300 text-slate-700 flex items-center justify-center text-xs">2</span>
+          <span>Questionnaire</span>
+        </div>
+        <div id="stepTab3" class="py-2 px-3 rounded-lg bg-slate-100 text-slate-500 border border-slate-200 flex items-center justify-center gap-2">
+          <span class="w-5 h-5 rounded-full bg-slate-300 text-slate-700 flex items-center justify-center text-xs">3</span>
+          <span>Gatehouse Dossier</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 1: VISITOR & INMATE DETAILS -->
+    <div id="sectionStep1" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-6">
+      <div>
+        <h2 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i class="ph-bold ph-identification-card text-brandNavy-700 text-xl"></i>
+          Step 1: Your Details & Inmate Information
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Please provide basic contact and visit specifics for gatehouse processing.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs sm:text-sm">
+        
+        <!-- Organisation/Agency -->
+        <div class="md:col-span-2">
+          <label class="block font-semibold text-slate-700 mb-1">
+            Organisation, Service Provider, or Business Name <span class="text-rose-500">*</span>
+          </label>
+          <input type="text" id="orgName" placeholder="e.g. Legal Aid WA, NDIA, Next Step Health, Private Practice (or 'Family / Friend' if personal visit)" 
+            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brandNavy-600 focus:border-brandNavy-600 outline-none transition">
+          <p class="text-slate-400 text-xs mt-1">If visiting as an individual, family member, or friend, simply write "Family / Friend".</p>
+        </div>
+
+        <!-- Primary Visitor Name -->
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">
+            Primary Visitor Full Name <span class="text-rose-500">*</span>
+          </label>
+          <input type="text" id="visitorName" placeholder="e.g. Sarah Jenkins" 
+            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brandNavy-600 outline-none transition">
+        </div>
+
+        <!-- Role / Job Title -->
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">
+            Your Role or Professional Title
+          </label>
+          <input type="text" id="visitorRole" placeholder="e.g. Solicitor, Psychologist, Support Coordinator, Pastor"
+            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brandNavy-600 outline-none transition">
+        </div>
+
+        <!-- Contact Email -->
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">
+            Contact Email <span class="text-rose-500">*</span>
+          </label>
+          <input type="email" id="visitorEmail" placeholder="e.g. s.jenkins@example.org" 
+            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brandNavy-600 outline-none transition">
+        </div>
+
+        <!-- Contact Phone -->
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">
+            Contact Phone Number
+          </label>
+          <input type="tel" id="visitorPhone" placeholder="e.g. 0412 345 678" 
+            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brandNavy-600 outline-none transition">
+        </div>
+
+        <!-- ABN -->
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">
+            Business ABN (Sub Contractor)
+          </label>
+          <input type="tel" id="visitorABN" placeholder="e.g. Add your ABN"
+            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brandNavy-600 outline-none transition">
+        </div>
+
+        <!-- Co-visitors (Accompanying) -->
+        <div class="md:col-span-2">
+          <label class="block font-semibold text-slate-700 mb-1">
+            Additional Accompanying Visitors (Optional)
+          </label>
+          <input type="text" id="coVisitors" placeholder="e.g. Jane Smith (Articled Clerk), Robert Lee (Colleague)" 
+            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brandNavy-600 outline-none transition">
+          <p class="text-slate-400 text-xs mt-1">If attending with colleagues, list their names here (each person must present photo ID on entry).</p>
+        </div>
+
+        <div class="border-t border-slate-200 md:col-span-2 my-1"></div>
+
+        <!-- Inmate Full Name -->
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">
+            Inmate / Prisoner Full Name <span class="text-rose-500">*</span>
+          </label>
+          <input type="text" id="inmateName" placeholder="e.g. Johnathan Smith" 
+            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brandNavy-600 outline-none transition">
+        </div>
+
+        <!-- Inmate ID / IIN (Optional) -->
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">
+            Inmate ID Number or DOB (If known)
+          </label>
+          <input type="text" id="inmateId" placeholder="e.g. 109842 or Date of Birth if IIN unknown" 
+            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brandNavy-600 outline-none transition">
+        </div>
+
+        <!-- Purpose / Reason for Visit -->
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">
+            Primary Purpose / Reason for Visit <span class="text-rose-500">*</span>
+          </label>
+          <select id="visitReason" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-brandNavy-600 outline-none transition">
+            <option value="">Select purpose...</option>
+            <option value="Legal Consultation / Court Preparation">Legal Consultation / Court Preparation</option>
+            <option value="One-Off Psychological / Psychiatric / OT Assessment">One-Off Psychological / Psychiatric / OT Assessment</option>
+            <option value="NDIS / NDIA Planning Meeting">NDIS / NDIA Planning Meeting</option>
+            <option value="Ongoing Counselling / Support Program Facilitation">Ongoing Counselling / Support Program Facilitation</option>
+            <option value="Statutory / Government Official Duties">Statutory / Government Official Duties</option>
+            <option value="Pastoral Care / Religious Support">Pastoral Care / Religious Support</option>
+            <option value="Family / Personal / Social Visit">Family / Personal / Social Visit</option>
+            <option value="Other Professional Assessment">Other Professional Assessment</option>
+          </select>
+        </div>
+
+        <!-- Intended Frequency -->
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">
+            Intended Frequency of Attendance <span class="text-rose-500">*</span>
+          </label>
+          <select id="visitFrequency" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-brandNavy-600 outline-none transition">
+            <option value="">Select attendance frequency...</option>
+            <option value="Single One-Off Visit (Specific Meeting / Assessment)">Single One-Off Visit (Specific Meeting / Assessment)</option>
+            <option value="Ongoing Regular Visits (Weekly / Monthly / Recurring)">Ongoing Regular Visits (Weekly / Monthly / Recurring)</option>
+            <option value="Occasional / Periodic Access (As-Needed)">Occasional / Periodic Access (As-Needed)</option>
+            <option value="Multi-Facility / Multiple Custodial Centres">Multi-Facility / Multiple Custodial Centres</option>
+          </select>
+        </div>
+
+        <!-- Proposed Date of Visit -->
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">
+            Proposed Date of Visit <span class="text-rose-500">*</span>
+          </label>
+          <input type="date" id="visitDate" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brandNavy-600 outline-none transition">
+        </div>
+
+        <!-- Target Facility / Prison -->
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">
+            Custodial Facility to Visit
+          </label>
+          <input type="text" id="facilityName" placeholder="e.g. Casuarina, Hakea, Bandyup, Albany, etc." 
+            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brandNavy-600 outline-none transition">
+        </div>
+
+      </div>
+
+      <!-- Action to next step -->
+      <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+        <span class="text-xs text-slate-500"><span class="text-rose-500">*</span> Mandatory for gatehouse reference</span>
+        <button onclick="goToQuestionnaire()" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-brandNavy-800 hover:bg-brandNavy-900 text-white font-semibold text-sm transition shadow-sm">
+          <span>Continue to Questionnaire</span>
+          <i class="ph-bold ph-arrow-right"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- SECTION 2: PLAIN-ENGLISH GUIDED QUESTIONNAIRE -->
+    <div id="sectionStep2" class="hidden bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-6">
+      
+      <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+            <i class="ph-bold ph-chat-circle-dots text-brandNavy-700 text-xl"></i>
+            Step 2: Guided Visit Eligibility Assessment
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Answer the following simple questions to determine your clearance requirements.</p>
+        </div>
+        <button onclick="backToStep1()" class="text-xs text-slate-600 hover:text-slate-900 font-medium px-3 py-1.5 rounded border border-slate-300 hover:bg-slate-50 inline-flex items-center gap-1">
+          <i class="ph-bold ph-arrow-left"></i> Edit Details
+        </button>
+      </div>
+
+      <div class="space-y-6 text-sm">
+
+        <!-- Question 1: Broad Nature -->
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/60 space-y-3">
+          <label class="block font-semibold text-slate-900 text-sm sm:text-base">
+            1. What is the overall nature of your visit?
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <button type="button" onclick="selectAnswer('nature', 'statutory', this)" class="q-btn-nature p-3 rounded-lg border text-left hover:border-brandNavy-600 bg-white transition">
+              <span class="font-bold text-slate-800 block text-xs sm:text-sm">Statutory / Legal Official</span>
+              <span class="text-xs text-slate-500">Lawyer, Police, Judge, Visiting Justice, Public Officer, or other official Visitor, etc.</span>
+            </button>
+            <button type="button" onclick="selectAnswer('nature', 'professional', this)" class="q-btn-nature p-3 rounded-lg border text-left hover:border-brandNavy-600 bg-white transition">
+              <span class="font-bold text-slate-800 block text-xs sm:text-sm">Service / Professional</span>
+              <span class="text-xs text-slate-500">Contractor, allied health, agency worker, service provider, paralegal, religous group, etc.</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question 2: Statutory Check (Conditionally Visible or highlighted) -->
+        <div id="boxQ2" class="hidden p-4 rounded-xl border border-slate-200 bg-slate-50/60 space-y-3">
+          <label class="block font-semibold text-slate-900 text-sm sm:text-base">
+            2. Do you hold an official statutory role under the legal schedule (COPP 7.3)? Download Doc: <a href="https://www.wa.gov.au/media/33998/download?inline"><u>COPP 7.3</u></a>
+          </label>
+          <p class="text-xs text-slate-500">
+            Official statutory roles include: <em>Visiting Justice, Judge, OICS Inspector, Independent Prison Visitor (IPV), Mental Health Advocate, Community Corrections Officer, Ombudsman, Police on official business, or Practising Legal Practitioner</em>.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button type="button" onclick="selectAnswer('isStatutory', 'yes', this)" class="q-btn-stat p-3 rounded-lg border text-left hover:border-emerald-600 bg-white transition">
+              <span class="font-bold text-emerald-800 block">YES — I hold one of these official roles</span>
+              <span class="text-xs text-slate-500">You carry recognized statutory credentials or legal identification.</span>
+            </button>
+            <button type="button" onclick="selectAnswer('isStatutory', 'no', this)" class="q-btn-stat p-3 rounded-lg border text-left hover:border-slate-400 bg-white transition">
+              <span class="font-bold text-slate-800 block">NO — I do not hold these roles</span>
+              <span class="text-xs text-slate-500">I am attending as a service provider, agency staff, or other role.</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question 3: Existing Approvals & Personal History -->
+        <div id="boxQ3" class="hidden p-4 rounded-xl border border-slate-200 bg-slate-50/60 space-y-3">
+          <label class="block font-semibold text-slate-900 text-sm sm:text-base">
+            3. Have YOU personally been approved and visited this facility in this exact role before?
+          </label>
+          <div class="bg-amber-50 border-l-4 border-amber-500 p-2.5 text-xs text-amber-900 rounded-r">
+            <strong>Important note:</strong> Custodial approvals attach personally to <em>you</em>, your <em>role</em>, and your <em>specific organisation</em>. You cannot automatically inherit approval from a predecessor or transfer approval from an old employer.
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <button type="button" onclick="selectAnswer('approvalStatus', 'already_approved', this)" class="q-btn-app p-3 rounded-lg border text-left hover:border-emerald-600 bg-white transition">
+              <span class="font-bold text-slate-800 block text-xs sm:text-sm">Yes, Already Approved</span>
+              <span class="text-xs text-slate-500">I am currently active on the facility's approved register.</span>
+            </button>
+            <button type="button" onclick="selectAnswer('approvalStatus', 'new_person', this)" class="q-btn-app p-3 rounded-lg border text-left hover:border-rose-600 bg-white transition">
+              <span class="font-bold text-slate-800 block text-xs sm:text-sm">No, I am New</span>
+              <span class="text-xs text-slate-500">First time attending or new employee/volunteer.</span>
+            </button>
+            <button type="button" onclick="selectAnswer('approvalStatus', 'changed_employer', this)" class="q-btn-app p-3 rounded-lg border text-left hover:border-rose-600 bg-white transition">
+              <span class="font-bold text-slate-800 block text-xs sm:text-sm">Changed Employers</span>
+              <span class="text-xs text-slate-500">Approved previously, but under a different organisation.</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question 4: Religious / Faith-Based Question -->
+        <div id="boxQ4" class="hidden p-4 rounded-xl border border-slate-200 bg-slate-50/60 space-y-3">
+          <label class="block font-semibold text-slate-900 text-sm sm:text-base">
+            4. Is your visit representing a church, faith group, or pastoral care organisation?
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button type="button" onclick="selectAnswer('isReligious', 'yes', this)" class="q-btn-rel p-3 rounded-lg border text-left hover:border-brandNavy-600 bg-white transition">
+              <span class="font-bold text-slate-800 block">YES — Religious / Faith-Based</span>
+              <span class="text-xs text-slate-500">e.g. Prison Fellowship, Chaplaincy, Church Ministry.</span>
+            </button>
+            <button type="button" onclick="selectAnswer('isReligious', 'no', this)" class="q-btn-rel p-3 rounded-lg border text-left hover:border-brandNavy-600 bg-white transition">
+              <span class="font-bold text-slate-800 block">NO — Secular / Non-Religious</span>
+              <span class="text-xs text-slate-500">General business, health, NGO, or government agency.</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question 5: Genuine One-off vs Recurring Check -->
+        <div id="boxQ5" class="hidden p-4 rounded-xl border border-slate-200 bg-slate-50/60 space-y-3">
+          <label class="block font-semibold text-slate-900 text-sm sm:text-base">
+            5. Is this visit strictly a genuine, single one-off assessment or meeting?
+          </label>
+          <p class="text-xs text-slate-500">
+            A <strong>genuine one-off</strong> means: a single isolated appointment (e.g. one psychologist report, an initial NDIS planning session, or single OT evaluation) for one prisoner, with <em>no expectation</em> of ongoing recurring visits.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button type="button" onclick="selectAnswer('isOneOff', 'yes', this)" class="q-btn-oneoff p-3 rounded-lg border text-left hover:border-amber-600 bg-white transition">
+              <span class="font-bold text-amber-900 block">YES — Strictly One-Off Single Visit</span>
+              <span class="text-xs text-slate-500">Isolated attendance. No repeat sessions or ongoing service planned.</span>
+            </button>
+            <button type="button" onclick="selectAnswer('isOneOff', 'no', this)" class="q-btn-oneoff p-3 rounded-lg border text-left hover:border-rose-600 bg-white transition">
+              <span class="font-bold text-rose-900 block">NO — Ongoing or Multiple Attendances</span>
+              <span class="text-xs text-slate-500">Regular casework, multi-prisoner support, or recurring programs.</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Button to Compute Result -->
+      <div class="pt-4 border-t border-slate-100 flex justify-end">
+        <button id="btnCompute" onclick="computeAssessmentResult()" disabled class="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-slate-300 text-slate-500 font-semibold text-sm cursor-not-allowed transition">
+          <span>Calculate My Visit Requirements</span>
+          <i class="ph-bold ph-sparkle"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- SECTION 3: ASSESSMENT OUTCOME & GATEHOUSE DOSSIER -->
+    <div id="sectionStep3" class="hidden space-y-6">
+
+      <!-- Navigation & Action Ribbon -->
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+          <span class="font-bold text-slate-800 text-sm">Pre-Visit Assessment Complete</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="backToQuestionnaire()" class="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-300 hover:bg-slate-50 text-slate-700 transition">
+            <i class="ph-bold ph-pencil"></i> Modify Answers
+          </button>
+          <button onclick="copyGatehouseDossier()" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-brandNavy-800 hover:bg-brandNavy-900 text-white shadow-sm transition">
+            <i class="ph-bold ph-copy"></i>
+            <span>Copy Gatehouse Summary</span>
+          </button>
+          <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-amber-500 hover:bg-amber-600 text-white shadow-sm transition">
+            <i class="ph-bold ph-printer"></i>
+            <span>Print Report / Save PDF / E-mail</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Visual Result Card for the Applicant -->
+      <div id="applicantBanner" class="p-6 rounded-xl border shadow-sm">
+        <!-- Dynamically injected -->
+      </div>
+
+      <!-- The Official Pre-Visit Intake Dossier (Structured for Gatehouse Officers) -->
+      <div id="printArea" class="bg-white rounded-xl border border-slate-300 shadow-sm p-6 sm:p-8 space-y-6">
+        
+        <!-- Header of Dossier -->
+        <div class="border-b-2 border-brandNavy-900 pb-4 flex flex-col sm:flex-row justify-between sm:items-end gap-2">
+          <div>
+            <div class="text-xs uppercase font-extrabold tracking-wider text-brandNavy-800">Department of Justice • Custodial Operations</div>
+            <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">PRE-VISIT INTAKE & ASSESSMENT DOSSIER</h2>
+            <div class="text-xs text-slate-500 mt-0.5">Streamlined Gatehouse & Reception Clearance Reference</div>
+          </div>
+          <div class="text-right text-xs text-slate-600 sm:border-l sm:pl-4 border-slate-200">
+            <div><strong>Dossier Ref:</strong> <span id="dossierRefId" class="font-mono">PVA-000000</span></div>
+            <div><strong>Generated:</strong> <span id="dossierDate">Today</span></div>
+            <div><strong>Facility:</strong> <span id="dossierFacility">Casuarina</span></div>
+          </div>
+        </div>
+
+        <!-- Section: Key Details Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+          
+          <!-- Box 1: Visitor Information -->
+          <div class="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-1.5">
+            <div class="text-xs font-bold uppercase tracking-wider text-brandNavy-800 mb-1 flex items-center gap-1.5">
+              <i class="ph-bold ph-user"></i> Visitor Profile
+            </div>
+            <div><span class="text-slate-500">Applicant Name:</span> <strong id="dosVisitorName" class="text-slate-800">--</strong></div>
+            <div><span class="text-slate-500">Role / Title:</span> <span id="dosVisitorRole">--</span></div>
+            <div><span class="text-slate-500">Organisation / Service:</span> <strong id="dosOrgName" class="text-slate-800">--</strong></div>
+            <div><span class="text-slate-500">Contact Email:</span> <span id="dosVisitorEmail">--</span></div>
+            <div><span class="text-slate-500">Phone:</span> <span id="dosVisitorPhone">--</span></div>
+            <div><span class="text-slate-500">ABN:</span> <span id="dosVisitorABN">--</span></div>
+            <div><span class="text-slate-500">Co-Visitors:</span> <span id="dosCoVisitors">None specified</span></div>
+          </div>
+
+          <!-- Box 2: Inmate & Attendance Details -->
+          <div class="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-1.5">
+            <div class="text-xs font-bold uppercase tracking-wider text-brandNavy-800 mb-1 flex items-center gap-1.5">
+              <i class="ph-bold ph-identification-badge"></i> Inmate & Visit Schedule
+            </div>
+            <div><span class="text-slate-500">Inmate Name:</span> <strong id="dosInmateName" class="text-slate-800">--</strong></div>
+            <div><span class="text-slate-500">Inmate ID / IIN:</span> <span id="dosInmateId">--</span></div>
+            <div><span class="text-slate-500">Reason / Purpose:</span> <strong id="dosVisitReason" class="text-slate-800">--</strong></div>
+            <div><span class="text-slate-500">Proposed Visit Date:</span> <strong id="dosVisitDate" class="text-slate-800">--</strong></div>
+            <div><span class="text-slate-500">Intended Frequency:</span> <span id="dosVisitFrequency">--</span></div>
+          </div>
+
+        </div>
+
+        <!-- Section: Determined Category & Directives -->
+        <div id="dosCategoryContainer" class="p-5 rounded-lg border-2 space-y-3">
+          <!-- Injected via JS -->
+        </div>
+
+
+
+        <!-- Officer Sign-off box -->
+        <div class="grid grid-cols-2 gap-4 text-xs pt-4 border-t border-slate-200 text-slate-600">
+          <div>
+            <div class="font-semibold text-slate-800">Gatehouse / Reception Officer Name:</div>
+            <div class="mt-4 border-b border-dashed border-slate-400 w-3/4"></div>
+          </div>
+          <div>
+            <div class="font-semibold text-slate-800">Officer Signature & Date:</div>
+            <div class="mt-4 border-b border-dashed border-slate-400 w-3/4"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Copy Alert Notification -->
+      <div id="copyNotification" class="hidden p-3 bg-emerald-100 border border-emerald-300 text-emerald-900 rounded-lg text-xs font-semibold text-center transition">
+        ✓ Gatehouse Handover summary copied to clipboard! You can paste directly into an email, shift handover, or prison CMS log.
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500 mt-auto">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div>Custodial Services • Official Visitors & Section 95 Intake Standard (COPP 7.3)</div>
+      <div>Ensuring streamlined gatehouse verification and security compliance</div>
+    </div>
+  </footer>
+
+  <script>
+    // State storage
+    const state = {
+      // Step 1
+      orgName: '',
+      visitorName: '',
+      visitorRole: '',
+      visitorEmail: '',
+      visitorPhone: '',
+      coVisitors: '',
+      inmateName: '',
+      inmateId: '',
+      visitReason: '',
+      visitFrequency: '',
+      visitDate: '',
+      facilityName: '',
+      
+      // Step 2 answers
+      nature: null,            // 'personal', 'statutory', 'professional'
+      isStatutory: null,       // 'yes', 'no'
+      approvalStatus: null,    // 'already_approved', 'new_person', 'changed_employer'
+      isReligious: null,       // 'yes', 'no'
+      isOneOff: null,          // 'yes', 'no'
+
+      // Determined Outcome Object
+      determinedOutcome: null,
+      dossierId: 'PVA-' + Math.floor(100000 + Math.random() * 900000)
+    };
+
+    // Category Outcomes Definitions (Plain language for applicants + operational notes for officers)
+    const OUTCOMES = {
+      OUTCOME_A: {
+        code: 'OUTCOME_A',
+        badge: '🟢 Statutory Official Visitor (COPP 7.3)',
+        colorClass: 'border-emerald-500 bg-emerald-50 text-emerald-950',
+        title: 'Outcome A: Statutory Official Visitor',
+        applicantText: 'You are visiting under an official statutory or legal authority. You do not need to fill out a lengthy Section 95 approval application or Visitor Declaration.',
+        applicantChecklist: [
+          'Provide official photographic ID (e.g. Driver Licence or Passport).',
+          'Provide your professional credentials / Law Practice Card / Government Badge.',
+          'For in person visits, present your photo ID and credentials to the gatehouse Senior Officer.',
+          '<b>Please send all requested Identification with this form ("Print Report - above") to Official Visits.</b>'
+        ],
+        officerDirective: 'ACTION: ID ONLY. Verify identity and legal/statutory credentials against COPP 7.3 schedule. Book visit directly. No Section 95 or Declaration required.',
+        governanceRef: 'Custodial Operating Procedure (COPP) 7.3 - Official Visitors Schedule'
+      },
+      OUTCOME_B: {
+        code: 'OUTCOME_B',
+        badge: '🟢 Approved Registered Visitor',
+        colorClass: 'border-emerald-500 bg-emerald-50 text-emerald-950',
+        title: 'Outcome B: Approved Registered Visitor',
+        applicantText: 'You and your organisation are already registered and cleared on the custodial approved visitor register. Your clearance is active.',
+        applicantChecklist: [
+          'Bring valid government-issued photographic ID.',
+          'Bring employee identification or introduction letter from your organisation.',
+          'The Gatehouse Officer will verify your existing register listing and book your visit without additional forms.'
+        ],
+        officerDirective: 'ACTION: VERIFY & BOOK. Confirm the visitor and organisation remain active on the Business/Services Register. Verify expiry date and book visit.',
+        governanceRef: 'Approved Business / Services Register & Gatehouse Fast-Track Booking'
+      },
+      OUTCOME_C: {
+        code: 'OUTCOME_C',
+        badge: '🟡 One-Off Professional Visitor',
+        colorClass: 'border-amber-500 bg-amber-50 text-amber-950',
+        title: 'Outcome C: One-Off Professional Visitor (Visitor Declaration Required)',
+        applicantText: 'Because this visit is an isolated, genuine single meeting (such as a single psychological assessment or initial NDIS plan), you can be processed via a Visitor Declaration without waiting for a multi-week Section 95 approval.',
+        applicantChecklist: [
+          'Complete the official custodial "Visitor Declaration" form (provided at reception or online).',
+          'Bring valid government photo ID (Driver Licence or Passport).',
+          'Bring a formal letterhead from your professional practice confirming the specific appointment with the inmate.',
+          'Note: If you plan to return for future visits, you must submit a formal Section 95 application.'
+        ],
+        officerDirective: 'ACTION: VISITOR DECLARATION. Verify photo ID, ensure visitor declaration is completed, and record details in the Local One-Off Professional Visitor Register.',
+        governanceRef: 'Section 95 Assessment Guide (Step 6 - Genuine One-Off Professional Visit)'
+      },
+      OUTCOME_D: {
+        code: 'OUTCOME_D',
+        badge: '🔴 Formal Section 95 Application Required',
+        colorClass: 'border-rose-500 bg-rose-50 text-rose-950',
+        title: 'Outcome D: Section 95 Application & Intel Clearance Required',
+        applicantText: 'Because you are providing ongoing services, attending regularly, or are a new worker/volunteer at an organisation, you require formal vetting before your visit can occur.',
+        applicantChecklist: [
+          'Complete and submit the formal "Application to Visit Prisoners (Section 95)" prior to attending.',
+          'Undergo mandatory Intelligence & Criminal History screening.',
+          'Await formal written approval from Custodial Services before booking your appointment.',
+          'Reminder: Approvals cannot be transferred from a prior employer or inherited from a former staff member.'
+        ],
+        officerDirective: 'ACTION: SECTION 95 APPLICATION MANDATORY. Do NOT book visit until formal application and Intelligence screening have been fully cleared and added to the register.',
+        governanceRef: 'Prisons Act 1981 Section 95 & Vetting Requirements'
+      },
+      OUTCOME_RELIGIOUS: {
+        code: 'OUTCOME_RELIGIOUS',
+        badge: '🔴 Religious Visitor Clearance Process',
+        colorClass: 'border-purple-500 bg-purple-50 text-purple-950',
+        title: 'Outcome E: Religious / Pastoral Visitor Procedure',
+        applicantText: 'Visits by faith-based volunteers require both the religious organisation to be registered and the individual volunteer to hold active pastoral approval.',
+        applicantChecklist: [
+          'Confirm your church or organisation holds an approved Service Proposal on the Religious Visitor Register.',
+          'If you are a new volunteer, submit a dedicated Religious Visitor Application form.',
+          'If your church or ministry is NOT yet registered, the organisation must submit a Service Proposal to Custodial Head Office first.'
+        ],
+        officerDirective: 'ACTION: CHECK RELIGIOUS REGISTER. If organisation is approved but volunteer is new, initiate Religious Visitor Application. If organisation is not approved, advise of Service Proposal requirement.',
+        governanceRef: 'Special Rule - Religious Visitors (Section 95 Guidelines)'
+      },
+      OUTCOME_SOCIAL: {
+        code: 'OUTCOME_SOCIAL',
+        badge: '⚪ Personal / Social Visit',
+        colorClass: 'border-slate-400 bg-slate-100 text-slate-900',
+        title: 'Outcome F: Family & Social Visits Procedure',
+        applicantText: 'Personal family and friend visits are not processed under professional or Section 95 guidelines.',
+        applicantChecklist: [
+          'Confirm that you are on the inmate’s approved social visitors list (TOMs).',
+          'Book through the custodial facility’s social visit booking telephone or portal.',
+          'Bring 100 points of identification on the day of your scheduled social visit session.'
+        ],
+        officerDirective: 'ACTION: SOCIAL VISITOR PROCESS. Redirect to standard social visits booking procedures and TOMs approved visitor checks.',
+        governanceRef: 'COPP 7.1 - Social Visits'
+      }
+    };
+
+    function goToQuestionnaire() {
+      // Validate mandatory fields
+      const org = document.getElementById('orgName').value.trim();
+      const visitor = document.getElementById('visitorName').value.trim();
+      const email = document.getElementById('visitorEmail').value.trim();
+      const inmate = document.getElementById('inmateName').value.trim();
+      const reason = document.getElementById('visitReason').value;
+      const freq = document.getElementById('visitFrequency').value;
+      const date = document.getElementById('visitDate').value;
+
+      if (!org || !visitor || !email || !inmate || !reason || !freq || !date) {
+        alert('Please complete all fields marked with an asterisk (*) before proceeding to the questionnaire.');
+        return;
+      }
+
+      // Save state
+      state.orgName = org;
+      state.visitorName = visitor;
+      state.visitorRole = document.getElementById('visitorRole').value.trim() || 'Professional / Representative';
+      state.visitorEmail = email;
+      state.visitorPhone = document.getElementById('visitorPhone').value.trim() || 'Not Provided';
+      state.coVisitors = document.getElementById('coVisitors').value.trim() || 'None';
+      state.inmateName = inmate;
+      state.inmateId = document.getElementById('inmateId').value.trim() || 'Not specified';
+      state.visitReason = reason;
+      state.visitFrequency = freq;
+      state.visitDate = date;
+      state.facilityName = document.getElementById('facilityName').value.trim() || 'Designated Custodial Facility';
+
+      // UI Switch
+      document.getElementById('sectionStep1').classList.add('hidden');
+      document.getElementById('sectionStep2').classList.remove('hidden');
+
+      // Update stepper
+      updateStepTabs(2);
+
+      // Pre-set logical question display based on step 1 answers
+      if (state.visitReason === 'Family / Personal / Social Visit' || state.orgName.toLowerCase().includes('family') || state.orgName.toLowerCase().includes('friend')) {
+        // Auto pick personal
+        const personalBtn = document.querySelector('.q-btn-nature');
+        if (personalBtn) selectAnswer('nature', 'personal', personalBtn);
+      } else if (state.visitReason === 'Legal Consultation / Court Preparation' || state.visitReason === 'Statutory / Government Official Duties') {
+        const statBtn = document.querySelectorAll('.q-btn-nature')[1];
+        if (statBtn) selectAnswer('nature', 'statutory', statBtn);
+      } else if (state.visitReason === 'Pastoral Care / Religious Support') {
+        const profBtn = document.querySelectorAll('.q-btn-nature')[2];
+        if (profBtn) selectAnswer('nature', 'professional', profBtn);
+        // Pre-activate religious box
+        document.getElementById('boxQ4').classList.remove('hidden');
+      }
+    }
+
+    function backToStep1() {
+      document.getElementById('sectionStep2').classList.add('hidden');
+      document.getElementById('sectionStep1').classList.remove('hidden');
+      updateStepTabs(1);
+    }
+
+    function backToQuestionnaire() {
+      document.getElementById('sectionStep3').classList.add('hidden');
+      document.getElementById('sectionStep2').classList.remove('hidden');
+      updateStepTabs(2);
+    }
+
+    function updateStepTabs(stepNum) {
+      const t1 = document.getElementById('stepTab1');
+      const t2 = document.getElementById('stepTab2');
+      const t3 = document.getElementById('stepTab3');
+
+      [t1, t2, t3].forEach(t => {
+        t.className = 'py-2 px-3 rounded-lg bg-slate-100 text-slate-500 border border-slate-200 flex items-center justify-center gap-2';
+      });
+
+      if (stepNum === 1) {
+        t1.className = 'py-2 px-3 rounded-lg bg-brandNavy-100 text-brandNavy-900 border border-brandNavy-600 flex items-center justify-center gap-2 font-bold';
+      } else if (stepNum === 2) {
+        t2.className = 'py-2 px-3 rounded-lg bg-brandNavy-100 text-brandNavy-900 border border-brandNavy-600 flex items-center justify-center gap-2 font-bold';
+      } else if (stepNum === 3) {
+        t3.className = 'py-2 px-3 rounded-lg bg-brandNavy-100 text-brandNavy-900 border border-brandNavy-600 flex items-center justify-center gap-2 font-bold';
+      }
+    }
+
+    function selectAnswer(questionKey, val, btnElem) {
+      state[questionKey] = val;
+
+      // Highlight selected button
+      const parentGroup = btnElem.parentElement;
+      Array.from(parentGroup.children).forEach(b => {
+        b.classList.remove('ring-2', 'ring-brandNavy-700', 'bg-blue-50/70', 'border-brandNavy-700');
+        b.classList.add('border-slate-200', 'bg-white');
+      });
+      btnElem.classList.remove('border-slate-200', 'bg-white');
+      btnElem.classList.add('ring-2', 'ring-brandNavy-700', 'bg-blue-50/70', 'border-brandNavy-700');
+
+      // Dynamic questionnaire display logic
+      if (questionKey === 'nature') {
+        if (val === 'personal') {
+          hideBoxes(['boxQ2', 'boxQ3', 'boxQ4', 'boxQ5']);
+          enableCompute(true);
+        } else if (val === 'statutory') {
+          showBox('boxQ2');
+          hideBoxes(['boxQ3', 'boxQ4', 'boxQ5']);
+          checkCanCompute();
+        } else if (val === 'professional') {
+          hideBoxes(['boxQ2']);
+          showBox('boxQ3');
+          showBox('boxQ4');
+          showBox('boxQ5');
+          checkCanCompute();
+        }
+      }
+
+      if (questionKey === 'isStatutory') {
+        if (val === 'yes') {
+          hideBoxes(['boxQ3', 'boxQ4', 'boxQ5']);
+          enableCompute(true);
+        } else {
+          // If not statutory, open the service provider flow
+          showBox('boxQ3');
+          showBox('boxQ4');
+          showBox('boxQ5');
+          checkCanCompute();
+        }
+      }
+
+      checkCanCompute();
+    }
+
+    function showBox(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('hidden');
+    }
+
+    function hideBoxes(ids) {
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
+    }
+
+    function checkCanCompute() {
+      if (state.nature === 'personal') {
+        enableCompute(true);
+        return;
+      }
+      if (state.nature === 'statutory' && state.isStatutory === 'yes') {
+        enableCompute(true);
+        return;
+      }
+      if (state.nature === 'professional' || (state.nature === 'statutory' && state.isStatutory === 'no')) {
+        if (state.approvalStatus && state.isReligious && state.isOneOff) {
+          enableCompute(true);
+          return;
+        }
+      }
+      enableCompute(false);
+    }
+
+    function enableCompute(isEnabled) {
+      const btn = document.getElementById('btnCompute');
+      if (isEnabled) {
+        btn.disabled = false;
+        btn.classList.remove('bg-slate-300', 'text-slate-500', 'cursor-not-allowed');
+        btn.classList.add('bg-brandNavy-800', 'text-white', 'hover:bg-brandNavy-900', 'shadow-md');
+      } else {
+        btn.disabled = true;
+        btn.classList.add('bg-slate-300', 'text-slate-500', 'cursor-not-allowed');
+        btn.classList.remove('bg-brandNavy-800', 'text-white', 'hover:bg-brandNavy-900', 'shadow-md');
+      }
+    }
+
+    function computeAssessmentResult() {
+      let outcome = null;
+
+      // 1. Personal Visit
+      if (state.nature === 'personal') {
+        outcome = OUTCOMES.OUTCOME_SOCIAL;
+      }
+      // 2. Statutory Official (COPP 7.3)
+      else if (state.nature === 'statutory' && state.isStatutory === 'yes') {
+        outcome = OUTCOMES.OUTCOME_A;
+      }
+      // 3. Religious Organisation Flow
+      else if (state.isReligious === 'yes') {
+        if (state.approvalStatus === 'already_approved') {
+          outcome = OUTCOMES.OUTCOME_B;
+        } else {
+          outcome = OUTCOMES.OUTCOME_RELIGIOUS;
+        }
+      }
+      // 4. Already Approved Registered Professional
+      else if (state.approvalStatus === 'already_approved') {
+        outcome = OUTCOMES.OUTCOME_B;
+      }
+      // 5. New employee, or changed employer
+      else if (state.approvalStatus === 'new_person' || state.approvalStatus === 'changed_employer') {
+        // Even if visiting once, formal approval policy applies to organizational personnel unless strictly approved as one-off
+        if (state.isOneOff === 'yes' && state.visitFrequency.includes('Single One-Off')) {
+          outcome = OUTCOMES.OUTCOME_C;
+        } else {
+          outcome = OUTCOMES.OUTCOME_D;
+        }
+      }
+      // 6. Generic One-off vs Ongoing
+      else if (state.isOneOff === 'yes') {
+        outcome = OUTCOMES.OUTCOME_C;
+      } else {
+        outcome = OUTCOMES.OUTCOME_D;
+      }
+
+      state.determinedOutcome = outcome;
+      renderDossier(outcome);
+
+      // UI Switch to Section 3
+      document.getElementById('sectionStep2').classList.add('hidden');
+      document.getElementById('sectionStep3').classList.remove('hidden');
+      updateStepTabs(3);
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderDossier(outcome) {
+      // 1. Render Applicant Banner
+      const appBanner = document.getElementById('applicantBanner');
+      appBanner.className = `p-5 sm:p-6 rounded-xl border-2 shadow-sm space-y-4 ${outcome.colorClass}`;
+      appBanner.innerHTML = `
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <span class="px-2.5 py-1 text-xs font-bold rounded-full bg-white/80 border shadow-xs inline-block mb-1.5">
+              ${outcome.badge}
+            </span>
+            <h3 class="text-lg sm:text-xl font-bold leading-tight">${outcome.title}</h3>
+          </div>
+          <span class="text-xs bg-white/90 border px-3 py-1.5 rounded-lg font-medium text-slate-800">
+            For Visit on: <strong>${escapeHtml(state.visitDate)}</strong>
+          </span>
+        </div>
+        <p class="text-xs sm:text-sm font-medium leading-relaxed">${outcome.applicantText}</p>
+        
+        <div class="pt-2 border-t border-black/10">
+          <h4 class="text-xs font-bold uppercase tracking-wider mb-2">What you need to bring / prepare:</h4>
+          <ul class="space-y-1.5 text-xs sm:text-sm">
+            ${outcome.applicantChecklist.map(item => `
+              <li class="flex items-start gap-2">
+                <i class="ph-bold ph-check-circle text-base mt-0.5 flex-shrink-0"></i>
+                <span>${item}</span>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      `;
+
+      // 2. Populate Dossier Data
+      document.getElementById('dossierRefId').innerText = state.dossierId;
+      document.getElementById('dossierDate').innerText = new Date().toLocaleDateString('en-AU', { day: '2-digit', month: 'short', year: 'numeric' });
+      document.getElementById('dossierFacility').innerText = state.facilityName;
+
+      document.getElementById('dosVisitorName').innerText = state.visitorName;
+      document.getElementById('dosVisitorRole').innerText = state.visitorRole;
+      document.getElementById('dosOrgName').innerText = state.orgName;
+      document.getElementById('dosVisitorEmail').innerText = state.visitorEmail;
+      document.getElementById('dosVisitorPhone').innerText = state.visitorPhone;
+      document.getElementById('dosCoVisitors').innerText = state.coVisitors;
+
+      document.getElementById('dosInmateName').innerText = state.inmateName;
+      document.getElementById('dosInmateId').innerText = state.inmateId;
+      document.getElementById('dosVisitReason').innerText = state.visitReason;
+      document.getElementById('dosVisitDate').innerText = state.visitDate;
+      document.getElementById('dosVisitFrequency').innerText = state.visitFrequency;
+
+      // 3. Category & Directives Box in Dossier
+      const catBox = document.getElementById('dosCategoryContainer');
+      catBox.className = `p-4 sm:p-5 rounded-lg border-2 space-y-2.5 ${outcome.colorClass}`;
+      catBox.innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider">Classification Determination</span>
+          <span class="text-xs font-bold px-2 py-0.5 rounded bg-white border">${outcome.badge}</span>
+        </div>
+        <div class="text-base font-bold text-slate-900">${outcome.title}</div>
+        <div class="p-3 bg-white/90 rounded border text-xs font-semibold text-slate-900 leading-relaxed">
+          <span class="text-slate-500 uppercase tracking-wider block text-[10px] mb-0.5">Duty Officer Entry Instruction:</span>
+          ${outcome.officerDirective}
+        </div>
+        <div class="text-[11px] text-slate-600">
+          <strong>Governing Standard:</strong> ${outcome.governanceRef}
+        </div>
+      `;
+    }
+
+    function copyGatehouseDossier() {
+      if (!state.determinedOutcome) return;
+
+      const summaryText = `--- CUSTODIAL GATEHOUSE PRE-VISIT DOSSIER ---
+Dossier Ref: ${state.dossierId}
+Facility: ${state.facilityName}
+Visit Date: ${state.visitDate}
+Generated: ${new Date().toLocaleString()}
+
+1. VISITOR DETAILS:
+• Name: ${state.visitorName} (${state.visitorRole})
+• Organisation: ${state.orgName}
+• Contact: ${state.visitorEmail} | ${state.visitorPhone}
+• Accompanying: ${state.coVisitors}
+
+2. INMATE DETAILS:
+• Inmate: ${state.inmateName} (ID: ${state.inmateId})
+• Visit Purpose: ${state.visitReason}
+• Intended Frequency: ${state.visitFrequency}
+
+3. CLASSIFICATION & ACTION REQUIRED:
+• Category: ${state.determinedOutcome.badge}
+• Directive: ${state.determinedOutcome.officerDirective}
+• Policy Ref: ${state.determinedOutcome.governanceRef}
+
+DUTY OFFICER CONFIRMATION:
+[ ] COPP 7.3 Statutory Schedule Verified (ID Only)
+[ ] Approved Business / Services Register Verified
+[ ] Approved Religious Visitor Register Verified
+[ ] Visitor Declaration Signed / One-off Recorded
+---------------------------------------------`;
+
+      const textArea = document.createElement('textarea');
+      textArea.value = summaryText;
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.select();
+      
+      try {
+        document.execCommand('copy');
+        const notif = document.getElementById('copyNotification');
+        notif.classList.remove('hidden');
+        setTimeout(() => notif.classList.add('hidden'), 4000);
+      } catch (err) {
+        console.error('Copy failed', err);
+      } finally {
+        document.body.removeChild(textArea);
+      }
+    }
+
+    // Reset All function
+    function resetAll() {
+      if (!confirm('Are you sure you want to reset the form and start over?')) return;
+      
+      // Clear inputs
+      document.querySelectorAll('input').forEach(input => input.value = '');
+      document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+      
+      // Reset state
+      state.nature = null;
+      state.isStatutory = null;
+      state.approvalStatus = null;
+      state.isReligious = null;
+      state.isOneOff = null;
+      state.determinedOutcome = null;
+      state.dossierId = 'PVA-' + Math.floor(100000 + Math.random() * 900000);
+
+      // Hide conditional boxes
+      hideBoxes(['boxQ2', 'boxQ3', 'boxQ4', 'boxQ5']);
+      
+      // Remove button states
+      document.querySelectorAll('.q-btn-nature, .q-btn-stat, .q-btn-app, .q-btn-rel, .q-btn-oneoff').forEach(b => {
+        b.classList.remove('ring-2', 'ring-brandNavy-700', 'bg-blue-50/70', 'border-brandNavy-700');
+        b.classList.add('border-slate-200', 'bg-white');
+      });
+
+      // Switch view
+      document.getElementById('sectionStep2').classList.add('hidden');
+      document.getElementById('sectionStep3').classList.add('hidden');
+      document.getElementById('sectionStep1').classList.remove('hidden');
+      updateStepTabs(1);
+      enableCompute(false);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>
